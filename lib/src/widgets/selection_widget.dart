@@ -152,7 +152,7 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                           trackBorderColor: widget.popupProps.scrollbarProps.trackBorderColor,
                           trackColor: widget.popupProps.scrollbarProps.trackColor,
                           trackRadius: widget.popupProps.scrollbarProps.trackRadius,
-                          child: ListView.builder(
+                          child: ListView.separated(
                             controller: widget.popupProps.listViewProps.controller ?? scrollController,
                             shrinkWrap: widget.popupProps.listViewProps.shrinkWrap,
                             padding: widget.popupProps.listViewProps.padding,
@@ -160,23 +160,31 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                             reverse: widget.popupProps.listViewProps.reverse,
                             primary: widget.popupProps.listViewProps.primary,
                             physics: widget.popupProps.listViewProps.physics,
-                            itemExtent: widget.popupProps.listViewProps.itemExtent,
+                            // itemExtent: widget.popupProps.listViewProps.itemExtent,
                             addAutomaticKeepAlives: widget.popupProps.listViewProps.addAutomaticKeepAlives,
                             addRepaintBoundaries: widget.popupProps.listViewProps.addRepaintBoundaries,
                             addSemanticIndexes: widget.popupProps.listViewProps.addSemanticIndexes,
                             cacheExtent: widget.popupProps.listViewProps.cacheExtent,
-                            semanticChildCount: widget.popupProps.listViewProps.semanticChildCount,
+                            // semanticChildCount: widget.popupProps.listViewProps.semanticChildCount,
                             dragStartBehavior: widget.popupProps.listViewProps.dragStartBehavior,
                             keyboardDismissBehavior: widget.popupProps.listViewProps.keyboardDismissBehavior,
                             restorationId: widget.popupProps.listViewProps.restorationId,
                             clipBehavior: widget.popupProps.listViewProps.clipBehavior,
                             itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
+                              itemBuilder: (context, index) {
                               var item = snapshot.data![index];
                               return widget.isMultiSelectionMode
                                   ? _itemWidgetMultiSelection(item)
                                   : _itemWidgetSingleSelection(item);
                             },
+                            separatorBuilder: (context, index) {
+                              return Container(
+                                margin: EdgeInsets.symmetric(horizontal: 8),
+                                width: double.infinity,
+                                height: 1,
+                                color: Colors.white,
+                              );
+                            }
                           ),
                         );
                       },
