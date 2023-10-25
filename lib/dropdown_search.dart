@@ -162,6 +162,8 @@ class DropdownSearch<T> extends StatefulWidget {
   ///if the callBack return FALSE, the opening of the popup will be cancelled
   final BeforePopupOpeningMultiSelection<T>? onBeforePopupOpeningMultiSelection;
 
+  final Widget? separateWiget;
+
   DropdownSearch({
     Key? key,
     this.onSaved,
@@ -181,6 +183,7 @@ class DropdownSearch<T> extends StatefulWidget {
     this.compareFn,
     this.onBeforeChange,
     this.onBeforePopupOpening,
+    this.separateWiget,
     PopupProps<T> popupProps = const PopupProps.menu(),
   })  : assert(
           !popupProps.showSelectedItems || T == String || compareFn != null,
@@ -210,12 +213,13 @@ class DropdownSearch<T> extends StatefulWidget {
     this.compareFn,
     this.selectedItems = const [],
     this.popupProps = const PopupPropsMultiSelection.menu(),
+    this.separateWiget,
     FormFieldSetter<List<T>>? onSaved,
     ValueChanged<List<T>>? onChanged,
     BeforeChangeMultiSelection<T>? onBeforeChange,
     BeforePopupOpeningMultiSelection<T>? onBeforePopupOpening,
     FormFieldValidator<List<T>>? validator,
-    DropdownSearchBuilderMultiSelection<T>? dropdownBuilder,
+    DropdownSearchBuilderMultiSelection<T>? dropdownBuilder, 
   })  : assert(
           !popupProps.showSelectedItems || T == String || compareFn != null,
         ),
@@ -487,30 +491,35 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
             visualDensity: widget.clearButtonProps.visualDensity,
           ),
         if (widget.dropdownButtonProps.isVisible)
-          IconButton(
-            style: widget.dropdownButtonProps.style,
-            isSelected: widget.dropdownButtonProps.isSelected,
-            selectedIcon: widget.dropdownButtonProps.selectedIcon,
-            onPressed: widget.dropdownButtonProps.onPressed ?? dropdownButtonPressed,
-            icon: widget.dropdownButtonProps.icon,
-            constraints: widget.dropdownButtonProps.constraints,
-            hoverColor: widget.dropdownButtonProps.hoverColor,
-            highlightColor: widget.dropdownButtonProps.highlightColor,
-            splashColor: widget.dropdownButtonProps.splashColor,
-            color: widget.dropdownButtonProps.color,
-            focusColor: widget.dropdownButtonProps.focusColor,
-            iconSize: widget.dropdownButtonProps.iconSize,
+          Padding(
             padding: widget.dropdownButtonProps.padding,
-            splashRadius: widget.dropdownButtonProps.splashRadius,
-            alignment: widget.dropdownButtonProps.alignment,
-            autofocus: widget.dropdownButtonProps.autofocus,
-            disabledColor: widget.dropdownButtonProps.disabledColor,
-            enableFeedback: widget.dropdownButtonProps.enableFeedback,
-            focusNode: widget.dropdownButtonProps.focusNode,
-            mouseCursor: widget.dropdownButtonProps.mouseCursor,
-            tooltip: widget.dropdownButtonProps.tooltip,
-            visualDensity: widget.dropdownButtonProps.visualDensity,
+            child: widget.dropdownButtonProps.icon,
           ),
+          // IconButton(
+          //   style: widget.dropdownButtonProps.style,
+          //   isSelected: widget.dropdownButtonProps.isSelected,
+          //   selectedIcon: widget.dropdownButtonProps.selectedIcon,
+          //   onPressed: widget.dropdownButtonProps.onPressed ?? dropdownButtonPressed,
+          //   icon: widget.dropdownButtonProps.icon,
+          //   constraints: widget.dropdownButtonProps.constraints,
+          //   hoverColor: widget.dropdownButtonProps.hoverColor,
+          //   highlightColor: widget.dropdownButtonProps.highlightColor,
+          //   splashColor: widget.dropdownButtonProps.splashColor,
+          //   color: widget.dropdownButtonProps.color,
+          //   focusColor: widget.dropdownButtonProps.focusColor,
+          //   iconSize: widget.dropdownButtonProps.iconSize,
+          //   padding: widget.dropdownButtonProps.padding,
+          //   splashRadius: widget.dropdownButtonProps.splashRadius,
+          //   alignment: widget.dropdownButtonProps.alignment,
+          //   autofocus: widget.dropdownButtonProps.autofocus,
+          //   disabledColor: widget.dropdownButtonProps.disabledColor,
+          //   enableFeedback: widget.dropdownButtonProps.enableFeedback,
+          //   focusNode: widget.dropdownButtonProps.focusNode,
+          //   mouseCursor: widget.dropdownButtonProps.mouseCursor,
+          //   tooltip: widget.dropdownButtonProps.tooltip,
+          //   visualDensity: widget.dropdownButtonProps.visualDensity,
+          // ),
+
       ],
     );
   }
@@ -629,6 +638,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       compareFn: widget.compareFn,
       isMultiSelectionMode: isMultiSelectionMode,
       defaultSelectedItems: List.from(getSelectedItems),
+      separateWiget: widget.separateWiget,
     );
   }
 

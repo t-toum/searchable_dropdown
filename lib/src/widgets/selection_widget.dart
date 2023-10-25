@@ -17,6 +17,7 @@ class SelectionWidget<T> extends StatefulWidget {
   final List<T> defaultSelectedItems;
   final PopupPropsMultiSelection<T> popupProps;
   final bool isMultiSelectionMode;
+  final Widget? separateWiget;
 
   const SelectionWidget({
     Key? key,
@@ -29,6 +30,7 @@ class SelectionWidget<T> extends StatefulWidget {
     this.itemAsString,
     this.filterFn,
     this.compareFn,
+    this.separateWiget,
   }) : super(key: key);
 
   @override
@@ -178,12 +180,7 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                                   : _itemWidgetSingleSelection(item);
                             },
                             separatorBuilder: (context, index) {
-                              return Container(
-                                margin: EdgeInsets.symmetric(horizontal: 8),
-                                width: double.infinity,
-                                height: 1,
-                                color: Colors.white,
-                              );
+                              return widget.separateWiget ?? SizedBox.shrink();
                             }
                           ),
                         );
